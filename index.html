@@ -5,34 +5,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>RPG Game</title>
-
- 
-
   <link rel="stylesheet" href="./assets/css/reset.css">
   <link rel="stylesheet" href="./assets/css/style.css">
-    
 </head>
-
 <body>
+  <h1>RPG Game</h1>
+  <h2 id = "message">Choose your character!</h2>
+ 
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-     
-
-    <button id = "attack">Attack</button>
-    <script>
-
-   
+  <img id = "character1" value = "characterOne" src = "https://via.placeholder.com/150">
+  <img id = "character2" value = "characterTwo" src = "https://via.placeholder.com/150">
+  <img id = "character3" value = "characterThree" src = "https://via.placeholder.com/150">
+  <img id = "character4" value = "characterFour" src = "https://via.placeholder.com/150">
+  <hr>
+  <button id = "attack">Attack</button>
+  <img src = "assets/images/Game_Background.svg">
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+ 
     $(document).ready(function() {
-    var player = {
-        health: 500,
-        attackStrength: 50
-        }
-        
-    var opponent1 = {
-        health: 100,
-        attackStrength: 100
+    
+    var character1 = {
+      health: 300,
+      attackMinStrength: 50,
+      attackMaxStrength: 60
     }
+    var character2 = {
+      health: 350,
+      attackMinStrength: 40,
+      attackMaxStrength: 50
+    }
+    var character3 = {
+      health: 400,
+      attackMinStrength: 40,
+      attackMaxStrength: 30
+    }
+    var character4 = {
+      health: 200,
+      attackMinStrength: 150,
+      attackMaxStrength: 160
+    }
+    
+    var characterChosen = false;
+    var characterOne = false;
+    var characterTwo = false;
+    var characterThree = false;
+    var characterFour = false;
+
+    $("#character1").on("click", function(){
+      chooseCharacter("Character1",characterOne);
+    })
+    $("#character2").on("click", function(){      
+      chooseCharacter("Character2",characterTwo);
+    })
+    $("#character3").on("click", function(){      
+      chooseCharacter("Character3",characterThree);
+    })
+    $("#character4").on("click", function(){      
+      chooseCharacter("Character4",characterFour);  
+    })
+    function chooseCharacter(character, chosenBoolean){
+      if(chosenBoolean == false){
+        $("#message").text("You have chosen " + character + " now click on opponent to attack!");
+      }
+      switch(character){
+        case "Character1": 
+          characterOne = true;
+          console.log(characterOne);
+        break;
+        case "Character2":
+          characterTwo = true;
+        break;
+        case "Character3":
+          characterThree = true;
+        break;
+        case "Character4":
+          characterFour = true;
+      }
+    }
+   
+  
 
         
     $("#attack").on("click", function(){      
@@ -40,10 +93,14 @@
             attack(opponent1);
             
     })
-
+    $("#opponent1ID").on("click", function(){      
+            opponentAttack(player,opponent1);
+            attack(opponent1);
+            
+    })
     function attack(opponent){
       if (opponent.health > 0){
-        opponent.health = opponent.health - 50;
+        opponent.health = opponent.health - getRandomInt(player.attackMinStrength,player.attackMinStrength);
       }
       else if (opponent.health <= 0){
         alert("oponent is destroyed");
@@ -52,15 +109,21 @@
     }
     function opponentAttack(player, opponent){
       if(player.health > 0){
-        player.health = player.health - opponent.attackStrength;
+        player.health = player.health - getRandomInt(opponent.attackMinStrength, opponent.attackMaxStrength);
       }
       else if (player.health <= 0)  {
         alert("game over");
       }
       console.log(player.health);
     }
-
-    });
-    </script>
+   
+//to get random number between min and max for random attack
+    function getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+  });
+</script>
 </body>
 </html>
