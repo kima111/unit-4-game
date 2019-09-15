@@ -6,13 +6,61 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>RPG Game</title>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="reset.css">
-  <link rel="stylesheet" href="style.css">
+ 
+
+  <link rel="stylesheet" href="./assets/css/reset.css">
+  <link rel="stylesheet" href="./assets/css/style.css">
     
 </head>
+
 <body>
-    
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+     
+
+    <button id = "attack">Attack</button>
+    <script>
+
+   
+    $(document).ready(function() {
+    var player = {
+        health: 500,
+        attackStrength: 50
+        }
+        
+    var opponent1 = {
+        health: 100,
+        attackStrength: 100
+    }
+
+        
+    $("#attack").on("click", function(){      
+            opponentAttack(player,opponent1);
+            attack(opponent1);
+            
+    })
+
+    function attack(opponent){
+      if (opponent.health > 0){
+        opponent.health = opponent.health - 50;
+      }
+      else if (opponent.health <= 0){
+        alert("oponent is destroyed");
+      }
+      console.log(opponent.health);
+    }
+    function opponentAttack(player, opponent){
+      if(player.health > 0){
+        player.health = player.health - opponent.attackStrength;
+      }
+      else if (player.health <= 0)  {
+        alert("game over");
+      }
+      console.log(player.health);
+    }
+
+    });
+    </script>
 </body>
 </html>
