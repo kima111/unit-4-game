@@ -1,0 +1,26 @@
+body{
+    /* background-image: url("../images/background.gif"); */
+    /* height: 100%;
+    width: 100%; */
+    background-color: #000000;
+    /* background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; */
+}
+h1{
+    text-align: center;
+    color: #eeeeee;
+}
+h2{
+    text-align: center;
+    color: #eeeeee;
+}
+.character{
+    margin: 5px;
+    
+}
+.mirror {
+    -moz-transform: scale(-1, 1);
+    -webkit-transform: scale(-1, 1);
+    transform: scale(-1, 1);
+ }

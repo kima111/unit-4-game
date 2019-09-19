@@ -6,25 +6,52 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>RPG Game</title>
   <link rel="stylesheet" href="./assets/css/reset.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="./assets/css/style.css">
-</head>
-<body>
-  <h1>RPG Game</h1>
-  <h2 id = "message">Choose your character!</h2>
- 
 
-  <img id = "character1" value = "characterOne" src = "https://via.placeholder.com/150">
-  <img id = "character2" value = "characterTwo" src = "https://via.placeholder.com/150">
-  <img id = "character3" value = "characterThree" src = "https://via.placeholder.com/150">
-  <img id = "character4" value = "characterFour" src = "https://via.placeholder.com/150">
-  <hr>
-  <button id = "attack">Attack</button>
-  <img src = "assets/images/Game_Background.svg">
-  
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+  <body>
+  <div class = "container">
+    <div class = "row">
+      <div class = "col-12">
+        <h1>Street Fighter RPG Game</h1>
+      </div>
+    </div>
+    <div class = "row">
+      <div class = "col-12">
+        <h2 id = "message">Choose your character!</h2>
+      </div>
+    </div>
+    <div class = "row">
+      <div class = "col-3">
+        <h2>Player Health: <text id ="playerHealth"></text></h2>
+      </div>
+      <div class = "col-3">
+        <h2>Opponent1 Health: <text id ="opponent1Health"></text></h2>
+      </div>
+      <div class = "col-3">
+        <h2>Opponent2 Health: <text id ="opponent2Health"></text></h2>
+      </div>
+      <div class = "col-3">
+        <h2>Opponent3 Health: <text id ="opponent3Health"></text></h2>
+      </div>
+    </div>
+    <div class = "row">
+      <div class = "col-12">
+        <img  id = "character1" value = "characterOne" src = "./assets/images/Zangief.png" style="position:absolute; top:0px; left:300px;">
+        <img  id = "character2" value = "characterTwo" src = "./assets/images/Ryu.png" style="position:absolute; top:0px; left:450px;">
+        <img  id = "character3" value = "characterThree" src = "./assets/images/Blanka.png" style="position:absolute; top:0px; left:600px;">
+        <img  id = "character4" value = "characterFour" src = "./assets/images/ChunLi.png" style="position:absolute; top:0px; left:800px;">
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
  
     $(document).ready(function() {
+
     
     var character1 = {
       health: 300,
@@ -48,73 +75,201 @@
     }
     
     var characterChosen = false;
-    var characterOne = false;
-    var characterTwo = false;
-    var characterThree = false;
-    var characterFour = false;
+    var characterPicked = false;
+
+    var p1;
+    var o1;
+    var o2;
+    var o3;
+
+
 
     $("#character1").on("click", function(){
-      chooseCharacter("Character1",characterOne);
+      // chooseCharacter("Character1",characterOne);
+      moveCharacters("Character1");
+      playerPick("#character1","#character2","#character3","#character4");
     })
     $("#character2").on("click", function(){      
-      chooseCharacter("Character2",characterTwo);
+      // chooseCharacter("Character2",characterTwo);
+      moveCharacters("Character2");
+      playerPick("#character2","#character1","#character3","#character4");
     })
     $("#character3").on("click", function(){      
-      chooseCharacter("Character3",characterThree);
+      // chooseCharacter("Character3",characterThree);
+      moveCharacters("Character3");
+      playerPick("#character3","#character1","#character2","#character4");
     })
-    $("#character4").on("click", function(){      
-      chooseCharacter("Character4",characterFour);  
+    $("#character4").on("click", function(){
+            
+      // chooseCharacter("Character4",characterFour);  
+      moveCharacters("Character4");
+      playerPick("#character4","#character1","#character2","#character3");
     })
-    function chooseCharacter(character, chosenBoolean){
-      if(chosenBoolean == false){
-        $("#message").text("You have chosen " + character + " now click on opponent to attack!");
-      }
-      switch(character){
-        case "Character1": 
-          characterOne = true;
-          console.log(characterOne);
-        break;
-        case "Character2":
-          characterTwo = true;
-        break;
-        case "Character3":
-          characterThree = true;
-        break;
-        case "Character4":
-          characterFour = true;
+
+    // function chooseCharacter(character, chosenBoolean){
+    //   if(chosenBoolean == false){
+    //     $("#message").text("You have chosen " + character + " now click on opponent to attack!");
+    //   }
+    //   switch(character){
+    //     case "Character1": 
+    //       characterOne = true;
+    //     break;
+    //     case "Character2":
+    //       characterTwo = true;
+ 
+    //     break;
+    //     case "Character3":
+    //       characterThree = true;
+
+    //     break;
+    //     case "Character4":
+    //       characterFour = true;   
+    //   }
+    // }
+
+    function moveCharacters(character){
+      if (characterChosen == false){
+        switch(character){
+          case "Character1":
+          $("#character1").animate({ top: "+=200px", left: "-=200px"}, "normal");
+          $("#character2").animate({ top: "+=200px", left: "+=200px"}, "normal");
+          $("#character3").animate({ top: "+=200px", left: "+=200px"}, "normal");
+          $("#character4").animate({ top: "+=200px", left: "+=200px"}, "normal");
+          $("#character2").addClass('mirror');
+          $("#character3").addClass('mirror');
+
+              
+  
+          characterChosen = true;
+          break;
+          case "Character2":
+          $("#character1").animate({ top: "+=200px", left: "+=350px"}, "normal");
+          $("#character2").animate({ top: "+=200px", left: "-=200px"}, "normal");
+          $("#character3").animate({ top: "+=200px", left: "+=200px"}, "normal");
+          $("#character4").animate({ top: "+=200px", left: "+=200px"}, "normal");
+          $("#character1").addClass('mirror');
+          $("#character3").addClass('mirror');
+          characterChosen = true;
+          break;
+          case "Character3":
+          $("#character1").animate({ top: "+=200px", left: "+=350px"}, "normal");
+          $("#character2").animate({ top: "+=200px", left: "+=375px"}, "normal");
+          $("#character3").animate({ top: "+=200px", left: "-=400px"}, "normal");
+          $("#character4").animate({ top: "+=200px", left: "+=200px"}, "normal");
+          $("#character1").addClass('mirror');
+          $("#character2").addClass('mirror');
+          characterChosen = true;
+          break;
+          case "Character4":
+          $("#character1").animate({ top: "+=200px", left: "+=350px"}, "normal");
+          $("#character2").animate({ top: "+=200px", left: "+=350px"}, "normal");
+          $("#character3").animate({ top: "+=200px", left: "+=300px"}, "normal");
+          $("#character4").animate({ top: "+=200px", left: "-=600px"}, "normal");
+          $("#character1").addClass('mirror');
+          $("#character2").addClass('mirror');
+          $("#character3").addClass('mirror');
+          $("#character4").addClass('mirror');
+          characterChosen = true;
+          break;
+        }
       }
     }
-   
-  
+    
 
-        
-    $("#attack").on("click", function(){      
-            opponentAttack(player,opponent1);
-            attack(opponent1);
-            
+    
+    function playerPick(player, opponent1, opponent2, opponent3){
+  
+    
+    if(characterPicked == false){
+    switch(player){
+      case "#character1":
+      $("#message").text("You have chosen Zangief now click on opponent to attack!");
+      p1 = character1;
+      o1 = character2;
+      o2 = character3;
+      o3 = character4;
+      characterPicked = true;
+   
+      break;
+      case "#character2":
+      $("#message").text("You have chosen Ryu now click on opponent to attack!");
+      p1 = character2;
+      o1 = character1;
+      o2 = character3;
+      o3 = character4;
+      characterPicked = true;
+
+      break;
+      case "#character3":
+      $("#message").text("You have chosen Blanka now click on opponent to attack!");
+      p1 = character3;
+      o1 = character1;
+      o2 = character2;
+      o3 = character4;
+      characterPicked = true;
+
+      break;
+      case "#character4":
+      $("#message").text("You have chosen Chunli now click on opponent to attack!");
+      p1 = character4;
+      o1 = character1;
+      o2 = character2;
+      o3 = character3;
+      characterPicked = true;
+
+      break;
+    }
+    }
+
+    $("#playerHealth").text(p1.health);
+    $("#opponent1Health").text(o1.health);
+    $("#opponent2Health").text(o2.health);
+    $("#opponent3Health").text(o3.health);
+
+    $(player).on("click", function(){
+    
     })
-    $("#opponent1ID").on("click", function(){      
-            opponentAttack(player,opponent1);
-            attack(opponent1);
-            
+    $(opponent1).on("click", function(){     
+      attackOpponent(p1,o1);
+      opponentAttack(p1,o1)
+      if(o1.health <= 0){
+        p1.attackMaxStrength = p1.attackMaxStrength+20;
+        p1.attackMinStrength = p1.attackMinStrength+20;
+        p1.health = p1.health+30;
+        $(opponent1).fadeOut();
+      }
+      
     })
-    function attack(opponent){
+    $(opponent2).on("click", function(){  
+      attackOpponent(p1,o2);
+      opponentAttack(p1,o2)    
+      if(o2.health <= 0){
+        $(opponent2).fadeOut();
+      }
+    
+    })
+    $(opponent3).on("click", function(){
+      attackOpponent(p1,o3);
+      opponentAttack(p1,o3)
+      if(o3.health <= 0){
+        $(opponent3).fadeOut();
+      }
+
+    
+    })
+    }
+
+    function attackOpponent(player, opponent){
       if (opponent.health > 0){
         opponent.health = opponent.health - getRandomInt(player.attackMinStrength,player.attackMinStrength);
       }
-      else if (opponent.health <= 0){
-        alert("oponent is destroyed");
-      }
-      console.log(opponent.health);
     }
+
+
     function opponentAttack(player, opponent){
       if(player.health > 0){
         player.health = player.health - getRandomInt(opponent.attackMinStrength, opponent.attackMaxStrength);
       }
-      else if (player.health <= 0)  {
-        alert("game over");
-      }
-      console.log(player.health);
     }
    
 //to get random number between min and max for random attack
@@ -125,5 +280,10 @@
     }
   });
 </script>
+
+<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
 </body>
 </html>
