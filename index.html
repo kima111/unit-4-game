@@ -279,6 +279,21 @@
       if(p1.health <= 0){
         $("#message").text("YOU LOSE!")
       }
+      if(o1.health <= 0){
+        p1.health = p1.health + 100;
+        p1.attackMinStrength = p1.attackMinStrength + 100;
+        p1.attackMaxStrength = p1.attackMaxStrength + 100;
+      }
+      if(o2.health <= 0){
+        p1.health = p1.health + 100;
+        p1.attackMinStrength = p1.attackMinStrength + 100;
+        p1.attackMaxStrength = p1.attackMaxStrength + 100;
+      }
+      if(o3.health <= 0){
+        p1.health = p1.health + 100;
+        p1.attackMinStrength = p1.attackMinStrength + 100;
+        p1.attackMaxStrength = p1.attackMaxStrength + 100;
+      }
         console.log("player health: " + p1.health);
         console.log("opponent 1 health: " + o1.health);
         console.log("opponent 2 health: " + o2.health);
