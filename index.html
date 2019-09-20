@@ -15,7 +15,8 @@
   <div class = "container">
     <div class = "row">
       <div class = "col-12">
-        <h1>Street Fighter RPG Game</h1>
+        <img class = "center" src = "assets/images/Logo.png">
+        <h1>RPG GAME</h1>
       </div>
     </div>
     <div class = "row">
@@ -95,7 +96,11 @@
       }
       if(characterChosen == true && characterPicked == true && playerSelected !== "Zangief"){
         attackOpponent(p1, character1);
+        // if(character1.health <= 0){
+        //   $("#character1").fadeOut();
+        // }
       }
+   
     })
     $("#character2").on("click", function(){      
       if(characterChosen == false && characterPicked == false){
@@ -104,6 +109,9 @@
       }
       if(characterChosen == true && characterPicked == true && playerSelected !== "Ryu"){
         attackOpponent(p1, character2);
+        // if(character2.health <= 0){
+        //   $("#character2").fadeOut();
+        // }
       }
     })
     $("#character3").on("click", function(){      
@@ -113,6 +121,9 @@
       }
       if(characterChosen == true && characterPicked == true && playerSelected !== "Blanka"){
         attackOpponent(p1, character3);
+        // if(character3.health <= 0){
+        //   $("#character3").fadeOut();
+        // }
       }
     })
     $("#character4").on("click", function(){
@@ -122,7 +133,11 @@
       }
       if(characterChosen == true && characterPicked == true && playerSelected !== "ChunLi"){
         attackOpponent(p1, character4);
+        // if(character4.health <= 0){
+        //   $("#character4 ").fadeOut();
+        // }
       }
+ 
     })
 
 
@@ -239,46 +254,30 @@
     $("#opponent3Health").text(o3.health);
     }
     }
-
-
-    // function playerAttack(opponent){
-  
-    //   attackOpponent(p1,o1);
-    //   opponentAttack(p1,o1)
-    //   if(o1.health <= 0){
-    //     p1.attackMaxStrength = p1.attackMaxStrength+20;
-    //     p1.attackMinStrength = p1.attackMinStrength+20;
-    //     p1.health = p1.health+30;
-    //   }
-      
-      
-    //   attackOpponent(p1,o2);
-    //   opponentAttack(p1,o2)    
-    //   if(o2.health <= 0){
-    //     p1.attackMaxStrength = p1.attackMaxStrength+20;
-    //     p1.attackMinStrength = p1.attackMinStrength+20;
-    //     p1.health = p1.health+30;
-    //   }
-     
-
-    //   attackOpponent(p1,o3);
-    //   opponentAttack(p1,o3)
-    //   if(o3.health <= 0){
-    //     p1.attackMaxStrength = p1.attackMaxStrength+20;
-    //     p1.attackMinStrength = p1.attackMinStrength+20;
-    //     p1.health = p1.health+30;
-    //     $(opponent3).fadeOut();
-    //   }
-    // }
-    
-      
+        
     function attackOpponent(player, opponent){
       
       if (opponent.health > 0){
         opponent.health = opponent.health - getRandomInt(player.attackMinStrength,player.attackMinStrength);
       }
+   
       if (player.health > 0){
         opponentAttack(player, opponent);
+      }
+      if(character1.health <= 0){
+        $("#character1").fadeOut();
+      }
+      if(character2.health <= 0){
+        $("#character2").fadeOut();
+      }
+      if(character3.health <= 0){
+        $("#character3").fadeOut();
+      }
+      if(character4.health <= 0){
+        $("#character4").fadeOut();
+      }
+      if(p1.health <= 0){
+        $("#message").text("YOU LOSE!")
       }
         console.log("player health: " + p1.health);
         console.log("opponent 1 health: " + o1.health);
