@@ -69,13 +69,17 @@
       attackMaxStrength: 30
     }
     var character4 = {
-      health: 200,
-      attackMinStrength: 150,
-      attackMaxStrength: 160
+      health: 250,
+      attackMinStrength: 50,
+      attackMaxStrength: 60
     }
     
     var characterChosen = false;
     var characterPicked = false;
+    var playerSelected = "";
+    var opponent1Selected = "";
+    var opponent3Selected = "";
+    var opponent4Selected = "";
 
     var p1;
     var o1;
@@ -85,47 +89,42 @@
 
 
     $("#character1").on("click", function(){
-      // chooseCharacter("Character1",characterOne);
-      moveCharacters("Character1");
-      playerPick("#character1","#character2","#character3","#character4");
+      if(characterChosen == false && characterPicked == false){
+        moveCharacters("Character1");
+        playerPick("#character1","#character2","#character3","#character4");
+      }
+      if(characterChosen == true && characterPicked == true && playerSelected !== "Zangief"){
+        attackOpponent(p1, character1);
+      }
     })
     $("#character2").on("click", function(){      
-      // chooseCharacter("Character2",characterTwo);
-      moveCharacters("Character2");
-      playerPick("#character2","#character1","#character3","#character4");
+      if(characterChosen == false && characterPicked == false){
+        moveCharacters("Character2");
+        playerPick("#character2","#character1","#character3","#character4");
+      }
+      if(characterChosen == true && characterPicked == true && playerSelected !== "Ryu"){
+        attackOpponent(p1, character2);
+      }
     })
     $("#character3").on("click", function(){      
-      // chooseCharacter("Character3",characterThree);
-      moveCharacters("Character3");
-      playerPick("#character3","#character1","#character2","#character4");
+      if(characterChosen == false && characterPicked == false){
+        moveCharacters("Character3");
+        playerPick("#character3","#character1","#character2","#character4");
+      }
+      if(characterChosen == true && characterPicked == true && playerSelected !== "Blanka"){
+        attackOpponent(p1, character3);
+      }
     })
     $("#character4").on("click", function(){
-            
-      // chooseCharacter("Character4",characterFour);  
-      moveCharacters("Character4");
-      playerPick("#character4","#character1","#character2","#character3");
+      if(characterChosen == false && characterPicked == false){
+        moveCharacters("Character4");
+        playerPick("#character4","#character1","#character2","#character3");
+      }
+      if(characterChosen == true && characterPicked == true && playerSelected !== "ChunLi"){
+        attackOpponent(p1, character4);
+      }
     })
 
-    // function chooseCharacter(character, chosenBoolean){
-    //   if(chosenBoolean == false){
-    //     $("#message").text("You have chosen " + character + " now click on opponent to attack!");
-    //   }
-    //   switch(character){
-    //     case "Character1": 
-    //       characterOne = true;
-    //     break;
-    //     case "Character2":
-    //       characterTwo = true;
- 
-    //     break;
-    //     case "Character3":
-    //       characterThree = true;
-
-    //     break;
-    //     case "Character4":
-    //       characterFour = true;   
-    //   }
-    // }
 
     function moveCharacters(character){
       if (characterChosen == false){
@@ -138,8 +137,6 @@
           $("#character2").addClass('mirror');
           $("#character3").addClass('mirror');
 
-              
-  
           characterChosen = true;
           break;
           case "Character2":
@@ -178,6 +175,7 @@
 
     
     function playerPick(player, opponent1, opponent2, opponent3){
+   
   
     
     if(characterPicked == false){
@@ -188,6 +186,10 @@
       o1 = character2;
       o2 = character3;
       o3 = character4;
+      playerSelected = "Zangief";
+      opponent1Selected = "Ryu";
+      opponent2Selected = "Blanka";
+      opponent3Selected = "ChunLi";
       characterPicked = true;
    
       break;
@@ -197,6 +199,10 @@
       o1 = character1;
       o2 = character3;
       o3 = character4;
+      playerSelected = "Ryu";
+      opponent1Selected = "Zangief";
+      opponent2Selected = "Blanka";
+      opponent3Selected = "ChunLi";
       characterPicked = true;
 
       break;
@@ -206,6 +212,10 @@
       o1 = character1;
       o2 = character2;
       o3 = character4;
+      playerSelected = "Blanka";
+      opponent1Selected = "Zangief";
+      opponent2Selected = "Ryu";
+      opponent3Selected = "ChunLi";
       characterPicked = true;
 
       break;
@@ -215,54 +225,70 @@
       o1 = character1;
       o2 = character2;
       o3 = character3;
+      playerSelected = "ChunLi";
+      opponent1Selected = "Zangief";
+      opponent2Selected = "Ryu";
+      opponent3Selected = "Blanka";
       characterPicked = true;
 
       break;
     }
-    }
-
     $("#playerHealth").text(p1.health);
     $("#opponent1Health").text(o1.health);
     $("#opponent2Health").text(o2.health);
     $("#opponent3Health").text(o3.health);
-
-    $(player).on("click", function(){
-    
-    })
-    $(opponent1).on("click", function(){     
-      attackOpponent(p1,o1);
-      opponentAttack(p1,o1)
-      if(o1.health <= 0){
-        p1.attackMaxStrength = p1.attackMaxStrength+20;
-        p1.attackMinStrength = p1.attackMinStrength+20;
-        p1.health = p1.health+30;
-        $(opponent1).fadeOut();
-      }
-      
-    })
-    $(opponent2).on("click", function(){  
-      attackOpponent(p1,o2);
-      opponentAttack(p1,o2)    
-      if(o2.health <= 0){
-        $(opponent2).fadeOut();
-      }
-    
-    })
-    $(opponent3).on("click", function(){
-      attackOpponent(p1,o3);
-      opponentAttack(p1,o3)
-      if(o3.health <= 0){
-        $(opponent3).fadeOut();
-      }
-
-    
-    })
+    }
     }
 
+
+    // function playerAttack(opponent){
+  
+    //   attackOpponent(p1,o1);
+    //   opponentAttack(p1,o1)
+    //   if(o1.health <= 0){
+    //     p1.attackMaxStrength = p1.attackMaxStrength+20;
+    //     p1.attackMinStrength = p1.attackMinStrength+20;
+    //     p1.health = p1.health+30;
+    //   }
+      
+      
+    //   attackOpponent(p1,o2);
+    //   opponentAttack(p1,o2)    
+    //   if(o2.health <= 0){
+    //     p1.attackMaxStrength = p1.attackMaxStrength+20;
+    //     p1.attackMinStrength = p1.attackMinStrength+20;
+    //     p1.health = p1.health+30;
+    //   }
+     
+
+    //   attackOpponent(p1,o3);
+    //   opponentAttack(p1,o3)
+    //   if(o3.health <= 0){
+    //     p1.attackMaxStrength = p1.attackMaxStrength+20;
+    //     p1.attackMinStrength = p1.attackMinStrength+20;
+    //     p1.health = p1.health+30;
+    //     $(opponent3).fadeOut();
+    //   }
+    // }
+    
+      
     function attackOpponent(player, opponent){
+      
       if (opponent.health > 0){
         opponent.health = opponent.health - getRandomInt(player.attackMinStrength,player.attackMinStrength);
       }
+      if (player.health > 0){
+        opponentAttack(player, opponent);
+      }
+        console.log("player health: " + p1.health);
+        console.log("opponent 1 health: " + o1.health);
+        console.log("opponent 2 health: " + o2.health);
+        console.log("opponent 3 health: " + o3.health);
+        $("#playerHealth").text(p1.health);
+        $("#opponent1Health").text(o1.health);
+        $("#opponent2Health").text(o2.health);
+        $("#opponent3Health").text(o3.health);
+
     }
 
 
